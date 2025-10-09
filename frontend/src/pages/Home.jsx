@@ -41,7 +41,7 @@ const Home = () => {
       (p) => p.category?.toLowerCase() === category.toLowerCase()
     );
 
-  // 📦 Product grid renderer
+  // 📦 Product grid renderer (no description/reviews passed)
   const renderProductGrid = (category) => {
     const categoryProducts = getProductsByCategory(category);
 
@@ -58,7 +58,7 @@ const Home = () => {
           <ProductCard
             key={product._id}
             title={product.title}
-            image={product.image} // can be base64 or static path
+            image={product.image}
             price={product.price?.toLocaleString()}
             discountPrice={product.discountPrice?.toLocaleString()}
             onCartClick={() => setSelectedProduct(product)}

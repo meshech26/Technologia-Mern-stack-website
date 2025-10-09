@@ -1,16 +1,29 @@
 import mongoose from "mongoose";
 
-const productSchema = mongoose.Schema(
+// 💬 Review Schema
+const reviewSchema = new mongoose.Schema(
   {
-    title: { type: String, required: true },
-    image: { type: String, required: true }, // will store base64 string
-    price: { type: Number, required: true },
-    discountPrice: { type: Number, required: true },
-    category: { type: String, required: true },
-    description: { type: String },
+    name: { type: String, required: true },
+    rating: { type: Number, required: true },
+    comment: { type: String, required: true },
   },
   { timestamps: true }
 );
 
+// 📦 Product Schema
+const productSchema = new mongoose.Schema(
+  {
+    title: { type: String, required: true },
+    image: { type: String, required: true }, // Can be URL or Base64
+    price: { type: Number, required: true },
+    discountPrice: { type: Number, required: true },
+    category: { type: String, required: true },
+    description: { type: String },
+    reviews: [reviewSchema], // ✅ Added reviews array
+  },
+  { timestamps: true }
+);
+
+// ✅ Model Export
 const Product = mongoose.model("Product", productSchema);
 export default Product;
