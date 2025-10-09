@@ -8,7 +8,7 @@ const Home = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [products, setProducts] = useState([]);
 
-  // 🧠 Fetch products from backend
+  // 🔄 Fetch all products from backend
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -22,7 +22,7 @@ const Home = () => {
     fetchProducts();
   }, []);
 
-  // 👇 Smooth scroll for footer links (/home#mobile, etc.)
+  // 🔍 Scroll to #hash if present
   useEffect(() => {
     const hash = location.hash;
     if (hash) {
@@ -35,11 +35,13 @@ const Home = () => {
     }
   }, [location]);
 
-  // 🔍 Filter helper
+  // 🔍 Filter by category
   const getProductsByCategory = (category) =>
-    products.filter((p) => p.category?.toLowerCase() === category.toLowerCase());
+    products.filter(
+      (p) => p.category?.toLowerCase() === category.toLowerCase()
+    );
 
-  // 🧩 Render a grid for any category
+  // 📦 Product grid renderer
   const renderProductGrid = (category) => {
     const categoryProducts = getProductsByCategory(category);
 
@@ -56,9 +58,9 @@ const Home = () => {
           <ProductCard
             key={product._id}
             title={product.title}
-            image={product.image} // Base64 or /uploads URL
-            price={product.price.toLocaleString()}
-            discountPrice={product.discountPrice.toLocaleString()}
+            image={product.image} // can be base64 or static path
+            price={product.price?.toLocaleString()}
+            discountPrice={product.discountPrice?.toLocaleString()}
             onCartClick={() => setSelectedProduct(product)}
           />
         ))}
@@ -70,7 +72,6 @@ const Home = () => {
     <div className="w-full min-h-screen bg-gradient-to-r from-blue-200 via-purple-100 to-pink-200 flex flex-col">
       <main className="pt-32 px-4 pb-20 flex-grow">
         <div className="max-w-7xl mx-auto space-y-16">
-
           {/* 📱 Mobiles */}
           <section id="mobile">
             <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
@@ -97,7 +98,7 @@ const Home = () => {
         </div>
       </main>
 
-      {/* 🪟 Modal */}
+      {/* 🪟 Product Modal */}
       {selectedProduct && (
         <ProductModel
           product={selectedProduct}

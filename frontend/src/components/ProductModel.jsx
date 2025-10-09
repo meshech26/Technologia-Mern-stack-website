@@ -48,7 +48,7 @@ const ProductModel = ({ product, onClose }) => {
           transition={{ duration: 0.3 }}
           onClick={(e) => e.stopPropagation()}
         >
-          {/* Close Button */}
+          {/* ❌ Close Button */}
           <button
             className="absolute top-4 right-4 text-gray-600 hover:text-black"
             onClick={onClose}
@@ -56,7 +56,7 @@ const ProductModel = ({ product, onClose }) => {
             <FaTimes size={20} />
           </button>
 
-          {/* Main Layout */}
+          {/* 🔍 Main Layout */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
             {/* Left: Image */}
             <div className="flex items-center justify-center">
@@ -69,15 +69,43 @@ const ProductModel = ({ product, onClose }) => {
 
             {/* Right: Details */}
             <div className="flex flex-col justify-center space-y-4">
-              <h2 className="text-3xl font-bold text-gray-800">{product.title}</h2>
-              <p className="text-gray-500 line-through">{product.price} LKR</p>
-              <p className="text-2xl font-bold text-red-600">{product.discountPrice} LKR</p>
+              <h2 className="text-3xl font-bold text-gray-800">
+                {product.title}
+              </h2>
+
+              <p className="text-lg font-bold text-gray-700">
+                Category:{" "}
+                <span className="capitalize font-normal">
+                  {product.category}
+                </span>
+              </p>
+
+              <p className="text-lg font-bold text-gray-700">
+                Description:{" "}
+                <span className="font-normal">{product.description}</span>
+              </p>
+
+              <p className="text-lg font-bold text-gray-700">
+                Original Price:{" "}
+                <span className="line-through font-normal text-gray-500">
+                  {product.price.toLocaleString()} LKR
+                </span>
+              </p>
+
+              <p className="text-lg font-bold text-gray-700">
+                Discounted Price:{" "}
+                <span className="text-red-600 font-normal">
+                  {product.discountPrice.toLocaleString()} LKR
+                </span>
+              </p>
 
               {/* Quantity Controls */}
               <div className="flex items-center space-x-4 mt-4">
                 <button
                   className="w-8 h-8 border rounded hover:bg-gray-100"
-                  onClick={() => setCount((c) => Math.max(1, Number(c || 1) - 1))}
+                  onClick={() =>
+                    setCount((c) => Math.max(1, Number(c || 1) - 1))
+                  }
                 >
                   -
                 </button>
@@ -97,20 +125,20 @@ const ProductModel = ({ product, onClose }) => {
                 </button>
               </div>
 
-              {/* Add to Cart Button */}
+              {/* Add to Cart */}
               <button className="mt-6 bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition">
                 Add to Cart
               </button>
             </div>
           </div>
 
-          {/* Reviews Section */}
+          {/* 🌟 Reviews Section */}
           <div className="border-t pt-6">
             <h3 className="text-2xl font-semibold text-gray-800 mb-4">
               Customer Reviews
             </h3>
 
-            {/* Review List */}
+            {/* Existing Reviews */}
             <div className="space-y-3 mb-6 max-h-[200px] overflow-y-auto pr-2">
               {reviews.map((r, idx) => (
                 <div
@@ -121,7 +149,12 @@ const ProductModel = ({ product, onClose }) => {
                     <p className="font-semibold text-gray-800">{r.user}</p>
                     <div className="flex text-yellow-500">
                       {[...Array(5)].map((_, i) => (
-                        <FaStar key={i} className={i < r.rating ? "fill-current" : "text-gray-300"} />
+                        <FaStar
+                          key={i}
+                          className={
+                            i < r.rating ? "fill-current" : "text-gray-300"
+                          }
+                        />
                       ))}
                     </div>
                   </div>
@@ -130,9 +163,9 @@ const ProductModel = ({ product, onClose }) => {
               ))}
             </div>
 
-            {/* Add Review Input */}
+            {/* Add Review */}
             <div className="flex flex-col gap-3">
-              {/* Star Rating */}
+              {/* Star Selector */}
               <div className="flex items-center gap-1 text-xl text-yellow-500">
                 {[...Array(5)].map((_, index) => {
                   const ratingValue = index + 1;
