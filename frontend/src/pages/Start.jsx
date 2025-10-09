@@ -52,17 +52,17 @@ const Start = () => {
                 {/* Feature 1 */}
                 <div className="p-8 bg-white/90 backdrop-blur-lg rounded-3xl shadow-xl hover:shadow-2xl transition transform hover:-translate-y-2 border-t-4 border-blue-600">
                   <h3 className="text-3xl font-bold text-blue-700 mb-4">
-                    Buy Electronics Anytime
+                    𝐵𝑢𝑦 𝐸𝑙𝑒𝑐𝑡𝑟𝑜𝑛𝑖𝑐𝑠 𝐴𝑛𝑦𝑡𝑖𝑚𝑒
                   </h3>
                   <p className="text-gray-700 text-xl leading-relaxed">
-                    Purchase mobiles and gadgets instantly — faster with just one click.
+                    Purchase mobiles and gadgets instantly faster with just one click.
                   </p>
                 </div>
 
                 {/* Feature 2 */}
                 <div className="p-8 bg-white/90 backdrop-blur-lg rounded-3xl shadow-xl hover:shadow-2xl transition transform hover:-translate-y-2 border-t-4 border-purple-600">
                   <h3 className="text-3xl font-bold text-purple-700 mb-4">
-                    Advanced Warranty Checker
+                    𝐴𝑑𝑣𝑎𝑛𝑐𝑒𝑑 𝑊𝑎𝑟𝑟𝑎𝑛𝑡𝑦 𝐶𝘩𝑒𝑐𝑘𝑒𝑟
                   </h3>
                   <p className="text-gray-700 text-xl leading-relaxed">
                     Verify your product warranty easily with our modern QR code system.
@@ -78,10 +78,10 @@ const Start = () => {
                   className="cursor-pointer p-8 bg-white/90 backdrop-blur-lg rounded-3xl shadow-xl hover:shadow-2xl transition transform hover:-translate-y-2 border-t-4 border-green-600"
                 >
                   <h3 className="text-3xl font-bold text-green-700 mb-4">
-                    Trusted Repair Service
+                    𝑇𝑟𝑢𝑠𝑡𝑒𝑑 𝑅𝑒𝑝𝑎𝑖𝑟 𝑆𝑒𝑟𝑣𝑖𝑐𝑒
                   </h3>
                   <p className="text-gray-700 text-xl leading-relaxed">
-                    Quality repairs done right — ensuring every client’s satisfaction.
+                    Quality repairs done right ensuring every client's satisfaction.
                   </p>
                   <p className="text-sm text-green-700 mt-2 underline">Click to expand</p>
                 </div>
@@ -89,10 +89,10 @@ const Start = () => {
                 {/* Feature 4 */}
                 <div className="p-8 bg-white/90 backdrop-blur-lg rounded-3xl shadow-xl hover:shadow-2xl transition transform hover:-translate-y-2 border-t-4 border-pink-600">
                   <h3 className="text-3xl font-bold text-pink-700 mb-4">
-                    Live ChatBot Support
+                    𝐿𝑖𝑣𝑒 𝐶ℎ𝑎𝑡𝐵𝑜𝑡 𝑆𝑢𝑝𝑝𝑜𝑟𝑡
                   </h3>
                   <p className="text-gray-700 text-xl leading-relaxed">
-                    Get help anytime — repair queries, product suggestions, and accessory advice from our Tech Bot.
+                    Get help anytime repair queries, product suggestions, and accessory advice from our Tech Bot.
                   </p>
                 </div>
               </>
@@ -106,35 +106,35 @@ const Start = () => {
                 className="col-span-full p-8 bg-white/90 backdrop-blur-lg rounded-3xl shadow-xl border-t-4 border-green-600 text-left transition-all duration-[3000ms] cursor-pointer"
               >
                 <h3 className="text-3xl font-bold text-green-700 mb-4 text-center">
-                  Trusted Repair Service
+                  𝑇𝑟𝑢𝑠𝑡𝑒𝑑 𝑅𝑒𝑝𝑎𝑖𝑟 𝑆𝑒𝑟𝑣𝑖𝑐𝑒
                 </h3>
 
                 <div className="space-y-6 text-gray-700 text-base">
                   <div>
-                    <h4 className="text-xl font-semibold text-blue-700">🔧 What We Repair</h4>
-                    <ul className="list-disc pl-6">
-                      <li>Smartphones (screen, battery, charging port, camera)</li>
-                      <li>Laptops (keyboard, display, hardware upgrades)</li>
-                      <li>Tablets & Accessories (connectivity issues, replacement)</li>
-                      <li>Water damage diagnosis and recovery</li>
+                    <h4 className="text-xl font-semibold text-blue-700">What We Repair</h4>
+                    <ul className="list-disc pl-6 font-semibold">
+                      <li>𝑆𝑚𝑎𝑟𝑡𝑝𝘩𝑜𝑛𝑒𝑠 (𝑠𝑐𝑟𝑒𝑒𝑛, 𝑏𝑎𝑡𝑡𝑒𝑟𝑦, 𝑐𝘩𝑎𝑟𝑔𝑖𝑛𝑔 𝑝𝑜𝑟𝑡, 𝑐𝑎𝑚𝑒𝑟𝑎)</li>
+                      <li>𝐿𝑎𝑝𝑡𝑜𝑝𝑠 (𝑘𝑒𝑦𝑏𝑜𝑎𝑟𝑑, 𝑑𝑖𝑠𝑝𝑙𝑎𝑦, 𝘩𝑎𝑟𝑑𝑤𝑎𝑟𝑒 𝑢𝑝𝑔𝑟𝑎𝑑𝑒𝑠)</li>
+                      <li>𝑇𝑎𝑏𝑙𝑒𝑡𝑠 & 𝐴𝑐𝑐𝑒𝑠𝑠𝑜𝑟𝑖𝑒𝑠 (𝑐𝑜𝑛𝑛𝑒𝑐𝑡𝑖𝑣𝑖𝑡𝑦 𝑖𝑠𝑠𝑢𝑒𝑠, 𝑟𝑒𝑝𝑙𝑎𝑐𝑒𝑚𝑒𝑛𝑡)</li>
+                      <li>𝑊𝑎𝑡𝑒𝑟 𝑑𝑎𝑚𝑎𝑔𝑒 𝑑𝑖𝑎𝑔𝑛𝑜𝑠𝑖𝑠 𝑎𝑛𝑑 𝑟𝑒𝑐𝑜𝑣𝑒𝑟𝑦</li>
                     </ul>
                   </div>
                   <div>
-                    <h4 className="text-xl font-semibold text-blue-700">✅ Why Choose Us</h4>
-                    <ul className="list-disc pl-6">
-                      <li>Certified technicians with real experience</li>
-                      <li>Original parts and transparent pricing</li>
-                      <li>Fast turnaround — same-day for most devices</li>
-                      <li>Customer satisfaction guaranteed</li>
+                    <h4 className="text-xl font-semibold text-blue-700">Why Choose Us</h4>
+                    <ul className="list-disc pl-6 font-semibold">
+                      <li>𝐶𝑒𝑟𝑡𝑖𝑓𝑖𝑒𝑑 𝑡𝑒𝑐𝘩𝑛𝑖𝑐𝑖𝑎𝑛𝑠 𝑤𝑖𝑡𝘩 𝑟𝑒𝑎𝑙 𝑒𝑥𝑝𝑒𝑟𝑖𝑒𝑛𝑐𝑒</li>
+                      <li>𝑂𝑟𝑖𝑔𝑖𝑛𝑎𝑙 𝑝𝑎𝑟𝑡𝑠 𝑎𝑛𝑑 𝑡𝑟𝑎𝑛𝑠𝑝𝑎𝑟𝑒𝑛𝑡 𝑝𝑟𝑖𝑐𝑖𝑛𝑔</li>
+                      <li>𝐹𝑎𝑠𝑡 𝑡𝑢𝑟𝑛𝑎𝑟𝑜𝑢𝑛𝑑 — 𝑠𝑎𝑚𝑒-𝑑𝑎𝑦 𝑓𝑜𝑟 𝑚𝑜𝑠𝑡 𝑑𝑒𝑣𝑖𝑐𝑒𝑠</li>
+                      <li>𝐶𝑢𝑠𝑡𝑜𝑚𝑒𝑟 𝑠𝑎𝑡𝑖𝑠𝑓𝑎𝑐𝑡𝑖𝑜𝑛 𝑔𝑢𝑎𝑟𝑎𝑛𝑡𝑒𝑒𝑑</li>
                     </ul>
                   </div>
                   <div>
-                    <h4 className="text-xl font-semibold text-blue-700">📍 How It Works</h4>
-                    <ol className="list-decimal pl-6">
-                      <li>Bring or send your device to our service center</li>
-                      <li>Receive a free diagnosis and repair quote</li>
-                      <li>Track repair progress through your order ID</li>
-                      <li>Pick up or get it delivered to your location</li>
+                    <h4 className="text-xl font-semibold text-blue-700">How It Works</h4>
+                    <ol className="list-decimal pl-6 font-semibold">
+                      <li>𝐵𝑟𝑖𝑛𝑔 𝑜𝑟 𝑠𝑒𝑛𝑑 𝑦𝑜𝑢𝑟 𝑑𝑒𝑣𝑖𝑐𝑒 𝑡𝑜 𝑜𝑢𝑟 𝑠𝑒𝑟𝑣𝑖𝑐𝑒 𝑐𝑒𝑛𝑡𝑒𝑟</li>
+                      <li>𝑅𝑒𝑐𝑒𝑖𝑣𝑒 𝑎 𝑓𝑟𝑒𝑒 𝑑𝑖𝑎𝑔𝑛𝑜𝑠𝑖𝑠 𝑎𝑛𝑑 𝑟𝑒𝑝𝑎𝑖𝑟 𝑞𝑢𝑜𝑡𝑒</li>
+                      <li>𝑇𝑟𝑎𝑐𝑘 𝑟𝑒𝑝𝑎𝑖𝑟 𝑝𝑟𝑜𝑔𝑟𝑒𝑠𝑠 𝑡𝘩𝑟𝑜𝑢𝑔𝘩 𝑦𝑜𝑢𝑟 𝑜𝑟𝑑𝑒𝑟 𝐼𝐷</li>
+                      <li>𝑃𝑖𝑐𝑘 𝑢𝑝 𝑜𝑟 𝑔𝑒𝑡 𝑖𝑡 𝑑𝑒𝑙𝑖𝑣𝑒𝑟𝑒𝑑 𝑡𝑜 𝑦𝑜𝑢𝑟 𝑙𝑜𝑐𝑎𝑡𝑖𝑜𝑛</li>
                     </ol>
                   </div>
                 </div>

@@ -1,11 +1,28 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import ProductCard from "../components/ProductCard";
+import ProductModel from "../components/ProductModel";
 
 const Home = () => {
   const location = useLocation();
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [products, setProducts] = useState([]);
 
-  // 👇 Smooth scroll to #section based on hash
+  // 🧠 Fetch products from backend
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const res = await fetch("http://localhost:5000/api/products");
+        const data = await res.json();
+        setProducts(data);
+      } catch (err) {
+        console.error("Error fetching products:", err);
+      }
+    };
+    fetchProducts();
+  }, []);
+
+  // 👇 Smooth scroll for footer links (/home#mobile, etc.)
   useEffect(() => {
     const hash = location.hash;
     if (hash) {
@@ -13,31 +30,48 @@ const Home = () => {
       if (target) {
         setTimeout(() => {
           target.scrollIntoView({ behavior: "smooth" });
-        }, 100); // Give time for DOM to render
+        }, 100);
       }
     }
   }, [location]);
 
-  const renderProductGrid = (prefix) => (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-      {Array.from({ length: 9 }).map((_, i) => (
-        <ProductCard
-          key={i}
-          title={`${prefix} ${i + 1}`}
-          image={`/images/${prefix}${i + 1}.png`}
-          price={(550000 + i * 1000).toLocaleString()}
-          discountPrice={(535000 + i * 1000).toLocaleString()}
-        />
-      ))}
-    </div>
-  );
+  // 🔍 Filter helper
+  const getProductsByCategory = (category) =>
+    products.filter((p) => p.category?.toLowerCase() === category.toLowerCase());
+
+  // 🧩 Render a grid for any category
+  const renderProductGrid = (category) => {
+    const categoryProducts = getProductsByCategory(category);
+
+    if (categoryProducts.length === 0)
+      return (
+        <p className="text-center text-gray-500">
+          No {category} products found.
+        </p>
+      );
+
+    return (
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        {categoryProducts.map((product) => (
+          <ProductCard
+            key={product._id}
+            title={product.title}
+            image={product.image} // Base64 or /uploads URL
+            price={product.price.toLocaleString()}
+            discountPrice={product.discountPrice.toLocaleString()}
+            onCartClick={() => setSelectedProduct(product)}
+          />
+        ))}
+      </div>
+    );
+  };
 
   return (
     <div className="w-full min-h-screen bg-gradient-to-r from-blue-200 via-purple-100 to-pink-200 flex flex-col">
       <main className="pt-32 px-4 pb-20 flex-grow">
         <div className="max-w-7xl mx-auto space-y-16">
 
-          {/* Mobile Section */}
+          {/* 📱 Mobiles */}
           <section id="mobile">
             <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
               Mobile
@@ -45,7 +79,7 @@ const Home = () => {
             {renderProductGrid("mobile")}
           </section>
 
-          {/* Laptop Section */}
+          {/* 💻 Laptops */}
           <section id="laptop">
             <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
               Laptop
@@ -53,16 +87,23 @@ const Home = () => {
             {renderProductGrid("laptop")}
           </section>
 
-          {/* Accessories Section */}
+          {/* 🎧 Accessories */}
           <section id="accessories">
             <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
               Accessories
             </h2>
             {renderProductGrid("accessory")}
           </section>
-
         </div>
       </main>
+
+      {/* 🪟 Modal */}
+      {selectedProduct && (
+        <ProductModel
+          product={selectedProduct}
+          onClose={() => setSelectedProduct(null)}
+        />
+      )}
     </div>
   );
 };
