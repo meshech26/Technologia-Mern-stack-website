@@ -8,7 +8,8 @@ const Home = () => {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [products, setProducts] = useState([]);
 
-  // 🔄 Fetch all products from backend
+  const query = new URLSearchParams(location.search).get("q")?.toLowerCase();
+
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -22,7 +23,6 @@ const Home = () => {
     fetchProducts();
   }, []);
 
-  // 🔍 Scroll to #hash if present
   useEffect(() => {
     const hash = location.hash;
     if (hash) {
@@ -35,26 +35,31 @@ const Home = () => {
     }
   }, [location]);
 
-  // 🔍 Filter by category
-  const getProductsByCategory = (category) =>
-    products.filter(
-      (p) => p.category?.toLowerCase() === category.toLowerCase()
-    );
+  // 🔍 Filter and return products per category
+  const filterProducts = (category) =>
+    products.filter((p) => {
+      const matchCategory = p.category?.toLowerCase() === category;
+      const matchSearch = query
+        ? p.title?.toLowerCase().includes(query)
+        : true;
+      return matchCategory && matchSearch;
+    });
 
-  // 📦 Product grid renderer (no description/reviews passed)
-  const renderProductGrid = (category) => {
-    const categoryProducts = getProductsByCategory(category);
+  const mobileResults = filterProducts("mobile");
+  const laptopResults = filterProducts("laptop");
+  const accessoryResults = filterProducts("accessory");
 
-    if (categoryProducts.length === 0)
-      return (
-        <p className="text-center text-gray-500">
-          No {category} products found.
-        </p>
-      );
+  const totalMatches =
+    mobileResults.length + laptopResults.length + accessoryResults.length;
 
-    return (
+  // 🧱 Render product grid
+  const renderGrid = (items, label) => (
+    <section>
+      <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
+        {label}
+      </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        {categoryProducts.map((product) => (
+        {items.map((product) => (
           <ProductCard
             key={product._id}
             title={product.title}
@@ -65,40 +70,30 @@ const Home = () => {
           />
         ))}
       </div>
-    );
-  };
+    </section>
+  );
 
   return (
     <div className="w-full min-h-screen bg-gradient-to-r from-blue-200 via-purple-100 to-pink-200 flex flex-col">
       <main className="pt-32 px-4 pb-20 flex-grow">
         <div className="max-w-7xl mx-auto space-y-16">
-          {/* 📱 Mobiles */}
-          <section id="mobile">
-            <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
-              Mobile
-            </h2>
-            {renderProductGrid("mobile")}
-          </section>
+          {/* ❌ Show only this if no matches */}
+          {query && totalMatches === 0 && (
+            <div className="text-center text-lg text-red-600 font-semibold">
+              🔍 No product matches the search term{" "}
+              <span className="italic text-gray-700">"{query}"</span>.
+            </div>
+          )}
 
-          {/* 💻 Laptops */}
-          <section id="laptop">
-            <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
-              Laptop
-            </h2>
-            {renderProductGrid("laptop")}
-          </section>
-
-          {/* 🎧 Accessories */}
-          <section id="accessories">
-            <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
-              Accessories
-            </h2>
-            {renderProductGrid("accessory")}
-          </section>
+          {/* ✅ Show only matching categories */}
+          {mobileResults.length > 0 && renderGrid(mobileResults, "Mobile")}
+          {laptopResults.length > 0 && renderGrid(laptopResults, "Laptop")}
+          {accessoryResults.length > 0 &&
+            renderGrid(accessoryResults, "Accessories")}
         </div>
       </main>
 
-      {/* 🪟 Product Modal */}
+      {/* 🔲 Modal */}
       {selectedProduct && (
         <ProductModel
           product={selectedProduct}

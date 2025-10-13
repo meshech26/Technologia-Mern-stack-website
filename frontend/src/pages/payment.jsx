@@ -5,7 +5,7 @@ const Payment = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // ✅ Get selected items passed from Cart
+  // ✅ Only accept cart-passed items
   const selectedItems = location.state?.selectedItems || [];
   const [paymentMethod, setPaymentMethod] = useState("card");
 
@@ -24,6 +24,23 @@ const Payment = () => {
 
   return (
     <div className="pt-28 px-4 pb-20 min-h-screen bg-gradient-to-r from-blue-200 via-purple-100 to-pink-200">
+
+      {/* 📍 Breadcrumb Navigation */}
+      <div className="max-w-7xl mx-auto px-4 mb-6">
+        <nav className="flex text-sm text-blue-800 font-medium space-x-2 items-center">
+          <a href="/home" className="flex items-center hover:underline">
+            <span className="mr-1">🏠</span> Home
+          </a>
+          <span className="text-gray-400">/</span>
+
+          <a href="/cart" className="hover:underline">Shopping Cart</a>
+          <span className="text-gray-400">/</span>
+
+          <span className="text-gray-500">Checkout</span>
+        </nav>
+      </div>
+
+      {/* 💳 Payment Summary Card */}
       <div className="max-w-lg mx-auto bg-white p-8 rounded-xl shadow-md">
         <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
           Payment Summary
@@ -46,55 +63,42 @@ const Payment = () => {
         </div>
 
         {/* 💰 Total */}
-        <div className="text-right text-xl font-bold text-gray-900 mb-6">
-          Total: {total.toLocaleString()} LKR
-        </div>
-
-        {/* 💳 Payment Method */}
-        <div className="mb-6">
-          <h3 className="text-lg font-semibold text-gray-800 mb-2">Select Payment Method:</h3>
-
-          <div className="flex flex-col gap-3">
-            <label className="flex items-center gap-3">
-              <input
-                type="radio"
-                name="payment"
-                value="card"
-                checked={paymentMethod === "card"}
-                onChange={() => setPaymentMethod("card")}
-                className="accent-blue-600"
-              />
-              <span className="text-gray-700 font-medium">Card Payment (Visa / MasterCard)</span>
-            </label>
-
-            <label className="flex items-center gap-3">
-              <input
-                type="radio"
-                name="payment"
-                value="koko"
-                checked={paymentMethod === "koko"}
-                onChange={() => setPaymentMethod("koko")}
-                className="accent-purple-600"
-              />
-              <span className="text-gray-700 font-medium">Koko (Buy Now Pay Later)</span>
-            </label>
+        {selectedItems.length > 0 && (
+          <div className="text-right text-xl font-bold text-gray-900 mb-6">
+            Total: {total.toLocaleString()} LKR
           </div>
+        )}
 
-          {/* Show extra description */}
+        {/* 💳 Payment Method - Card Only */}
+        <div className="mb-6">
+          <h3 className="text-lg font-semibold text-gray-800 mb-2">Payment Method:</h3>
+
+          <label className="flex items-center gap-3">
+            <input
+              type="radio"
+              name="payment"
+              value="card"
+              checked
+              readOnly
+              className="accent-blue-600"
+            />
+            <span className="text-gray-700 font-medium">Card Payment (Visa / MasterCard)</span>
+          </label>
+
           <div className="mt-4 text-sm text-gray-600">
-            {paymentMethod === "card" && (
-              <p>Secure payment via Visa, MasterCard, or Debit Card.</p>
-            )}
-            {paymentMethod === "koko" && (
-              <p>You will be redirected to Koko to complete the payment.</p>
-            )}
+            Secure payment via Visa, MasterCard, or Debit Card.
           </div>
         </div>
 
         {/* 🧾 Pay Now */}
         <button
           onClick={handlePayment}
-          className="w-full bg-blue-600 text-white py-3 rounded-lg hover:bg-blue-700 transition"
+          disabled={selectedItems.length === 0}
+          className={`w-full py-3 rounded-lg font-semibold transition ${
+            selectedItems.length === 0
+              ? "bg-gray-400 text-white cursor-not-allowed"
+              : "bg-blue-600 hover:bg-blue-700 text-white"
+          }`}
         >
           Pay Now
         </button>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaShoppingCart, FaTools, FaUser } from "react-icons/fa";
 
 const Header = () => {
@@ -8,23 +8,21 @@ const Header = () => {
   const [cartCount, setCartCount] = useState(0);
   const dropdownRef = useRef(null);
   const location = useLocation();
+  const navigate = useNavigate();
 
-  // Update cart count whenever location or storage changes
+  // 🛒 Update cart count from localStorage
   useEffect(() => {
     const updateCount = () => {
       const cart = JSON.parse(localStorage.getItem("cart")) || [];
       const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
       setCartCount(totalItems);
     };
-
     updateCount();
-
-    // Listen to storage changes (from other tabs or components)
     window.addEventListener("storage", updateCount);
     return () => window.removeEventListener("storage", updateCount);
   }, [location]);
 
-  // Close dropdown on outside click
+  // ✋ Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -35,9 +33,10 @@ const Header = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  // 🔍 Handle search
   const handleSearch = () => {
     if (searchTerm.trim()) {
-      console.log("Searching for:", searchTerm);
+      navigate(`/home?q=${encodeURIComponent(searchTerm.trim())}`);
       setSearchTerm("");
     }
   };
@@ -45,7 +44,6 @@ const Header = () => {
   return (
     <header className="w-full fixed top-0 left-0 z-50 bg-gray-900/90 backdrop-blur-sm text-white shadow-md">
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16 space-x-6">
-
         {/* Brand Name */}
         <div className="text-xl font-bold text-white whitespace-nowrap shrink-0">
           Technologia
@@ -58,6 +56,7 @@ const Header = () => {
             placeholder="Search products..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
             className="bg-transparent text-white px-4 py-2 focus:outline-none w-full placeholder-gray-400"
           />
           <button

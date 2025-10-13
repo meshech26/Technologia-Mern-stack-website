@@ -8,9 +8,8 @@ const Cart = () => {
   const navigate = useNavigate();
   const cartItems = useSelector((state) => state.cart.cartItems);
 
-  // ✅ State to track selected items (by _id)
   const [selectedItems, setSelectedItems] = useState(
-    cartItems.map((item) => item._id) // default: all selected
+    cartItems.map((item) => item._id)
   );
 
   const updateQuantity = (product, newQty) => {
@@ -51,12 +50,24 @@ const Cart = () => {
       return;
     }
 
-    // Optional: pass selectedCartItems via state
     navigate("/payment", { state: { selectedItems: selectedCartItems } });
   };
 
   return (
     <div className="pt-28 px-6 pb-12 bg-gradient-to-r from-blue-200 via-purple-100 to-pink-200 min-h-screen">
+
+      {/* 📍 Breadcrumb */}
+      <div className="max-w-7xl mx-auto px-2 sm:px-4 mb-6">
+        <nav className="flex text-sm text-blue-800 font-medium space-x-2 items-center">
+          <Link to="/home" className="flex items-center hover:underline">
+            <span className="mr-1">🏠</span> Home
+          </Link>
+          <span className="text-gray-400">/</span>
+          <span className="text-gray-500">Shopping Cart</span>
+        </nav>
+      </div>
+
+      {/* 🛒 Cart Content */}
       <div className="max-w-6xl mx-auto bg-white rounded-lg shadow-lg p-6">
         <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
           Your Cart
@@ -88,7 +99,7 @@ const Cart = () => {
                   selectedItems.includes(item._id) ? "bg-gray-50" : "bg-gray-100"
                 }`}
               >
-                {/* Left: Checkbox + Image + Text */}
+                {/* Left: Info */}
                 <div className="flex items-center space-x-4 w-full sm:w-2/3">
                   <input
                     type="checkbox"
@@ -111,7 +122,7 @@ const Cart = () => {
                   </div>
                 </div>
 
-                {/* Right: Quantity + Remove + Price */}
+                {/* Right: Controls */}
                 <div className="flex flex-col items-center sm:items-end mt-4 sm:mt-0 gap-3 w-full sm:w-1/3">
                   <div className="flex items-center space-x-3">
                     <button
