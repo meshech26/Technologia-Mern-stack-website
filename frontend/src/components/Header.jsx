@@ -25,7 +25,7 @@ const Header = () => {
   }, []);
 
   return (
-    <header className="w-full fixed top-0 left-0 z-50 bg-gray-900 text-white shadow-md">
+    <header className="w-full sticky top-0 z-50 bg-gray-900 text-white shadow-md">
       <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16 space-x-6">
 
         {/* 0. Brand Name */}
