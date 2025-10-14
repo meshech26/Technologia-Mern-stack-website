@@ -111,7 +111,7 @@ const Header = () => {
 
         {/* 4. Sign In */}
         <Link
-          to="/signin"
+          to="/admin/dashboard"
           className="flex items-center space-x-2 px-4 py-2 bg-blue-600 rounded hover:bg-blue-500 transition text-sm font-semibold shrink-0"
         >
           <FaUser className="text-base" />
