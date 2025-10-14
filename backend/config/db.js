@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
+// In server/config/db.js
+import mongoose from 'mongoose';
 
 const connectDB = async (uri) => {
   try {
-    await mongoose.connect(uri, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
+    // --- FIX: Remove the deprecated options object ---
+    await mongoose.connect(uri); 
+    
     console.log('MongoDB connected');
   } catch (err) {
     console.error('MongoDB connection error:', err.message);
@@ -13,6 +13,4 @@ const connectDB = async (uri) => {
   }
 }
 
-module.exports = connectDB;
-
-
+export default connectDB;

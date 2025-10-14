@@ -1,70 +1,41 @@
-import React, { useEffect } from "react";
-import { useLocation } from "react-router-dom";
-import ProductCard from "../components/ProductCard";
+import React from 'react'
 
 const Home = () => {
-  const location = useLocation();
-
-  // 👇 Smooth scroll to #section based on hash
-  useEffect(() => {
-    const hash = location.hash;
-    if (hash) {
-      const target = document.querySelector(hash);
-      if (target) {
-        setTimeout(() => {
-          target.scrollIntoView({ behavior: "smooth" });
-        }, 100); // Give time for DOM to render
-      }
-    }
-  }, [location]);
-
-  const renderProductGrid = (prefix) => (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-      {Array.from({ length: 9 }).map((_, i) => (
-        <ProductCard
-          key={i}
-          title={`${prefix} ${i + 1}`}
-          image={`/images/${prefix}${i + 1}.png`}
-          price={(550000 + i * 1000).toLocaleString()}
-          discountPrice={(535000 + i * 1000).toLocaleString()}
-        />
-      ))}
-    </div>
-  );
-
   return (
-    <div className="w-full min-h-screen bg-gradient-to-r from-blue-200 via-purple-100 to-pink-200 flex flex-col">
-      <main className="pt-32 px-4 pb-20 flex-grow">
-        <div className="max-w-7xl mx-auto space-y-16">
-
-          {/* Mobile Section */}
-          <section id="mobile">
-            <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
-              Mobile
-            </h2>
-            {renderProductGrid("mobile")}
-          </section>
-
-          {/* Laptop Section */}
-          <section id="laptop">
-            <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
-              Laptop
-            </h2>
-            {renderProductGrid("laptop")}
-          </section>
-
-          {/* Accessories Section */}
-          <section id="accessories">
-            <h2 className="text-3xl font-bold text-gray-800 mb-6 text-center">
-              Accessories
-            </h2>
-            {renderProductGrid("accessory")}
-          </section>
-
+    <div className="min-h-screen bg-gray-50">
+      {/* Remove the simple header since we have the main Header component */}
+      
+      {/* Hero Section */}
+      <div className="relative h-96 bg-gradient-to-r from-blue-500 to-purple-600 flex items-center justify-center">
+        <div className="text-center text-white">
+          <h2 className="text-5xl font-bold mb-4">Welcome to Technologia</h2>
+          <p className="text-xl">Your one-stop shop for electronics and warranty services</p>
+          <button className="mt-6 bg-white text-blue-600 px-6 py-3 rounded-lg font-semibold hover:bg-gray-100">
+            Get Started
+          </button>
         </div>
-      </main>
-    </div>
-  );
-};
+      </div>
 
-export default Home;
+      {/* Features Section */}
+      <div className="max-w-7xl mx-auto px-4 py-16">
+        <h3 className="text-3xl font-bold text-center mb-12">Our Services</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="bg-white p-6 rounded-lg shadow-md text-center">
+            <h4 className="text-xl font-semibold mb-3">Warranty Services</h4>
+            <p>Register and manage your product warranties with ease</p>
+          </div>
+          <div className="bg-white p-6 rounded-lg shadow-md text-center">
+            <h4 className="text-xl font-semibold mb-3">Product Repair</h4>
+            <p>Professional repair services for all your electronics</p>
+          </div>
+          <div className="bg-white p-6 rounded-lg shadow-md text-center">
+            <h4 className="text-xl font-semibold mb-3">Support</h4>
+            <p>24/7 customer support for all your needs</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+export default Home

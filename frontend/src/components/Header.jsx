@@ -1,18 +1,22 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
-import { FaShoppingCart, FaTools, FaUser } from "react-icons/fa";
+import { Link, useLocation, useNavigate } from "react-router-dom"; // Import useNavigate
 
 const Header = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const dropdownRef = useRef(null);
+  const location = useLocation();
+  const navigate = useNavigate(); // Hook for navigation
 
-  const handleSearch = () => {
-    if (searchTerm.trim()) {
-      console.log("Searching for:", searchTerm);
-      setSearchTerm("");
-    }
+  // Check if a token exists to determine auth state
+  const isAuthenticated = !!localStorage.getItem("token");
+
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // Clear the token
+    navigate("/login"); // Redirect to login page
   };
+  
+  // ... (rest of the functions like handleSearch, useEffects remain the same)
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -24,99 +28,85 @@ const Header = () => {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location]);
+
   return (
     <header className="w-full fixed top-0 left-0 z-50 bg-gray-900 text-white shadow-md">
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-16 space-x-6">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 space-x-4">
+          {/* Logo and Brand */}
+          <div className="flex items-center space-x-3 shrink-0">
+            <img src="/images/1.png" alt="Technologia Logo" className="w-10 h-10 rounded-full object-cover" />
+            <Link to="/home" className="text-xl font-bold text-white whitespace-nowrap">Technologia</Link>
+          </div>
 
-        {/* 0. Brand Name */}
-        <div className="text-xl font-bold text-white whitespace-nowrap shrink-0">
-          Technologia
-        </div>
+          {/* Search Bar can remain */}
+          {/* ... */}
 
-        {/* 1. Search Bar */}
-        <div className="flex items-center bg-gray-800 rounded-full overflow-hidden border border-gray-700 focus-within:border-blue-500 transition flex-grow max-w-lg">
-          <input
-            type="text"
-            placeholder="Search products..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            className="bg-transparent text-white px-4 py-2 focus:outline-none w-full placeholder-gray-400"
-          />
-          <button
-            onClick={handleSearch}
-            className="px-5 py-2 bg-blue-600 hover:bg-blue-700 transition text-sm font-semibold"
-            title="Search"
-          >
-            Search
-          </button>
-        </div>
-
-        {/* 2. Nav Links */}
-        <nav className="hidden md:flex space-x-6 text-sm font-medium shrink-0">
-          <Link to="/home" className="hover:text-blue-400">
-            Home
-          </Link>
-          <Link to="/order-history" className="hover:text-blue-400">
-            Order History
-          </Link>
-
-          {/* Services Dropdown */}
-          <div className="relative" ref={dropdownRef}>
-            <button
-              onClick={() => setDropdownOpen(!dropdownOpen)}
-              className="hover:text-blue-400 focus:outline-none"
-            >
-              <span className="inline-flex items-center space-x-1">
-                <FaTools className="text-base" />
-                <span>Services</span>
-              </span>
-            </button>
-
-            {dropdownOpen && (
-              <div className="absolute mt-2 bg-white text-gray-800 rounded shadow-lg w-40 z-50">
-                <Link
-                  to="/warranty-validate"
-                  className="block px-4 py-2 hover:bg-blue-100"
-                  onClick={() => {
-                    setDropdownOpen(false);
-                    window.scrollTo(0, 0);
-                  }}
-                >
-                  Warranty
-                </Link>
-                <Link
-                  to="/repair"
-                  className="block px-4 py-2 hover:bg-blue-100"
-                  onClick={() => {
-                    setDropdownOpen(false);
-                    window.scrollTo(0, 0);
-                  }}
-                >
-                  Repair
-                </Link>
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center space-x-6 text-sm font-medium shrink-0">
+            <Link to="/home" className="hover:text-blue-400 flex items-center space-x-1"><span>🏠</span><span>Home</span></Link>
+            <Link to="/warranty" className="hover:text-blue-400 flex items-center space-x-1"><span>📝</span><span>Warranty Form</span></Link>
+            
+            {/* --- Conditionally render admin links --- */}
+            {isAuthenticated && (
+              <div className="flex items-center space-x-1 border-l border-gray-600 pl-4 ml-2">
+                <Link to="/dashboard" className={`hover:text-blue-400 flex items-center space-x-1 px-3 py-1 rounded ${location.pathname === "/dashboard" ? "bg-blue-600 text-white" : ""}`}><span>📊</span><span>Dashboard</span></Link>
+                <Link to="/report" className={`hover:text-blue-400 flex items-center space-x-1 px-3 py-1 rounded ${location.pathname === "/report" ? "bg-blue-600 text-white" : ""}`}><span>📋</span><span>Report</span></Link>
               </div>
             )}
+          </nav>
+
+          {/* Right Side Icons */}
+          <div className="flex items-center space-x-4">
+            {/* ... Search and Cart Icons ... */}
+            
+            {/* --- Conditional Login/Logout Button --- */}
+            {isAuthenticated ? (
+              <button
+                onClick={handleLogout}
+                className="flex items-center space-x-2 px-4 py-2 bg-red-600 rounded hover:bg-red-500 transition text-sm font-semibold shrink-0"
+              >
+                <span>👤</span>
+                <span className="hidden sm:inline">Logout</span>
+              </button>
+            ) : (
+              <Link
+                to="/login"
+                className="flex items-center space-x-2 px-4 py-2 bg-blue-600 rounded hover:bg-blue-500 transition text-sm font-semibold shrink-0"
+              >
+                <span>👤</span>
+                <span className="hidden sm:inline">Admin Sign In</span>
+              </Link>
+            )}
+
+            {/* Mobile Menu Button */}
+            <button className="lg:hidden p-2 hover:text-blue-400 transition" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>☰</button>
           </div>
-        </nav>
+        </div>
 
-        {/* 3. Cart */}
-        <Link
-          to="/cart"
-          className="flex items-center space-x-2 p-2 hover:text-blue-400 transition shrink-0 text-sm font-medium"
-          title="Cart"
-        >
-          <FaShoppingCart className="text-lg" />
-          <span>Cart</span>
-        </Link>
-
-        {/* 4. Sign In */}
-        <Link
-          to="/signin"
-          className="flex items-center space-x-2 px-4 py-2 bg-blue-600 rounded hover:bg-blue-500 transition text-sm font-semibold shrink-0"
-        >
-          <FaUser className="text-base" />
-          <span>Sign In</span>
-        </Link>
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden bg-gray-800 border-t border-gray-700 py-4">
+            <div className="flex flex-col space-y-3 px-4">
+              <Link to="/home" className="hover:text-blue-400 py-2 border-b border-gray-700 flex items-center space-x-2"><span>🏠</span><span>Home</span></Link>
+              <Link to="/warranty" className="hover:text-blue-400 py-2 border-b border-gray-700 flex items-center space-x-2"><span>📝</span><span>Warranty Form</span></Link>
+              
+              {/* Conditional Mobile Admin Links */}
+              {isAuthenticated && (
+                <div className="py-2 border-b border-gray-700">
+                  <span className="font-semibold">Admin Panel</span>
+                  <div className="mt-2 space-y-2 pl-4">
+                    <Link to="/dashboard" className={`block py-1 flex items-center space-x-2 ${location.pathname === "/dashboard" ? "text-blue-400 font-semibold" : "hover:text-blue-400"}`}><span>📊</span><span>Dashboard</span></Link>
+                    <Link to="/report" className={`block py-1 flex items-center space-x-2 ${location.pathname === "/report" ? "text-blue-400 font-semibold" : "hover:text-blue-400"}`}><span>📋</span><span>Report</span></Link>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </header>
   );
