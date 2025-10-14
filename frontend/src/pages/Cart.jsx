@@ -44,13 +44,29 @@ const Cart = () => {
     0
   );
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (selectedCartItems.length === 0) {
       alert("Please select at least one product to proceed.");
       return;
     }
 
-    navigate("/payment", { state: { selectedItems: selectedCartItems } });
+    try {
+      const res = await fetch("http://localhost:5000/api/stripe/create-checkout-session", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ items: selectedCartItems }),
+      });
+
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        alert("Payment initiation failed.");
+      }
+    } catch (error) {
+      console.error("Checkout Error:", error);
+      alert("Something went wrong. Please try again.");
+    }
   };
 
   return (

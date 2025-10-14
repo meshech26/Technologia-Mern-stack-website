@@ -73,7 +73,7 @@ const Header = () => {
             Home
           </Link>
           <Link to="/order-history" className="hover:text-blue-400">
-            Order History
+            My Orders
           </Link>
 
           {/* Services Dropdown */}

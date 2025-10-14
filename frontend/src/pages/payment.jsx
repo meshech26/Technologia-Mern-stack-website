@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import axios from "axios"; // ✅ Import Axios for backend call
 
 const Payment = () => {
   const navigate = useNavigate();
@@ -17,7 +18,8 @@ const Payment = () => {
     0
   );
 
-  const handlePayment = () => {
+  // ✅ Submit payment data to backend
+  const handlePayment = async () => {
     if (!cardNumber || !nameOnCard || !expiry || !cvv) {
       alert("Please fill in all card details.");
       return;
@@ -28,8 +30,23 @@ const Payment = () => {
       return;
     }
 
-    alert(`✅ Payment successful!`);
-    navigate("/home");
+    const paymentData = {
+      cardNumber,
+      nameOnCard,
+      expiry,
+      cvv,
+      totalAmount: total,
+      selectedItems,
+    };
+
+    try {
+      await axios.post("http://localhost:5000/api/payments", paymentData);
+      alert("✅ Payment successful!");
+      navigate("/home");
+    } catch (error) {
+      console.error("Payment Error:", error);
+      alert("❌ Payment failed. Try again.");
+    }
   };
 
   return (
@@ -50,7 +67,6 @@ const Payment = () => {
 
       {/* 💳 Payment Section */}
       <div className="max-w-lg mx-auto bg-white p-8 rounded-xl shadow-md space-y-6">
-
         <h2 className="text-3xl font-bold text-gray-800 text-center">Payment Summary</h2>
 
         {/* 🧾 Cart Items */}
@@ -91,7 +107,9 @@ const Payment = () => {
             {/* Card Fields */}
             <div className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Card number<span className="text-red-500 ml-1">*</span></label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Card number<span className="text-red-500 ml-1">*</span>
+                </label>
                 <input
                   type="text"
                   value={cardNumber}
@@ -102,7 +120,9 @@ const Payment = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Name on card<span className="text-red-500 ml-1">*</span></label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Name on card<span className="text-red-500 ml-1">*</span>
+                </label>
                 <input
                   type="text"
                   value={nameOnCard}
@@ -114,7 +134,9 @@ const Payment = () => {
 
               <div className="flex gap-4">
                 <div className="flex-1">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">Expiry date<span className="text-red-500 ml-1">*</span></label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Expiry date<span className="text-red-500 ml-1">*</span>
+                  </label>
                   <input
                     type="text"
                     value={expiry}
@@ -124,7 +146,9 @@ const Payment = () => {
                   />
                 </div>
                 <div className="flex-1">
-                  <label className="block text-sm font-medium text-gray-700 mb-1">CVV<span className="text-red-500 ml-1">*</span></label>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    CVV<span className="text-red-500 ml-1">*</span>
+                  </label>
                   <input
                     type="text"
                     value={cvv}

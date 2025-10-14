@@ -8,6 +8,11 @@ import Cart from "./pages/Cart";
 import Payment from "./pages/payment"; // ✅ Added Payment Page
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import PaymentSuccess from "./pages/paymentSuccess";
+import OrderHistory from "./pages/OrderHistory";
+
+
+
 
 function App() {
   return (
@@ -21,6 +26,8 @@ function App() {
         <Route path="/repair" element={<Repair />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="/payment" element={<Payment />} /> {/* ✅ Added Payment route */}
+        <Route path="/payment-success" element={<PaymentSuccess />} />
+        <Route path="/order-history" element={<OrderHistory />} />
       </Routes>
 
       <Footer />
