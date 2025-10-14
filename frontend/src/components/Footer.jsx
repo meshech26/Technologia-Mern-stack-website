@@ -66,7 +66,7 @@ const Footer = () => {
              className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 hover:bg-green-500">
             <FaWhatsapp className="text-white text-lg" />
           </a>
-          <a href="https://www.tiktok.com/@technologia" target="_blank" rel="noopener noreferrer"
+          <a href="https://www.tiktok.com/@meshechjohnathan" target="_blank" rel="noopener noreferrer"
              className="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 hover:bg-gray-100 hover:text-black">
             <FaTiktok className="text-white text-lg" />
           </a>
