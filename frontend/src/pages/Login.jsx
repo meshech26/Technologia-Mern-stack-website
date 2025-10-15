@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate, useLocation } from 'react-router-dom';
-import Header from '../components/Header';
-import Footer from '../components/Footer';  
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -30,8 +28,6 @@ const Login = () => {
   };
 
   return (
-    <>
-      <Header />
     <div className="p-6 max-w-md mx-auto">
       <h1 className="text-2xl font-bold mb-4">Login</h1>
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -60,8 +56,7 @@ const Login = () => {
         </button>
       </form>
     </div>
-     <Footer />
-    </>
+
   );
 };
 
