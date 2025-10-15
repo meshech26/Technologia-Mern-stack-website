@@ -35,4 +35,4 @@ WarrantySchema.pre("save", function (next) {
   next();
 });
 
-export default mongoose.model("Warranty", WarrantySchema);
+export default mongoose.model("Warranty", WarrantySchema,"warranties");
