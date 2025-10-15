@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-
 const EditRepair = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -59,7 +58,7 @@ const EditRepair = () => {
       data.append('isValid', formData.isValid);
       data.append('isConfirmed', formData.isConfirmed);
       if (formData.repairedImage) {
-        data.append('repairedImage', formData.repairedImage); // ✅ Must match backend field
+        data.append('repairedImage', formData.repairedImage);
       }
 
       await axios.put(`http://localhost:5000/api/repairs/${id}/admin`, data, {
@@ -79,8 +78,9 @@ const EditRepair = () => {
   if (!repair) return <div className="p-6">Loading...</div>;
 
   return (
-      <div className="p-6 max-w-xl mx-auto">
-        <h1 className="text-2xl font-bold mb-4">Edit Repair: {repair.repairId}</h1>
+    <div className="min-h-screen pt-28 pb-16 px-6 bg-gradient-to-r from-blue-200 via-purple-100 to-pink-200 flex flex-col items-center justify-start">
+      <div className="w-full max-w-xl bg-white p-6 rounded-xl shadow-md">
+        <h1 className="text-2xl font-bold mb-4 text-center">Edit Repair: {repair.repairId}</h1>
         <form onSubmit={handleSubmit} className="space-y-4">
           {/* Status */}
           <div>
@@ -135,14 +135,17 @@ const EditRepair = () => {
             </label>
           </div>
 
-          <button
-            type="submit"
-            className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700"
-          >
-            Update
-          </button>
+          <div className="flex justify-center">
+            <button
+              type="submit"
+              className="bg-green-600 text-white px-6 py-2 rounded hover:bg-green-700"
+            >
+              Update
+            </button>
+          </div>
         </form>
       </div>
+    </div>
   );
 };
 

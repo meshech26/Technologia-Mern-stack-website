@@ -25,15 +25,13 @@ const AddRepair = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // ✅ Custom productId format check
-  if (!formData.productId.startsWith("R00")) {
-    alert("Product ID must start with 'R00'");
-    return;
-  }
-
+    if (!formData.productId.startsWith("R00")) {
+      alert("Product ID must start with 'R00'");
+      return;
+    }
 
     try {
-      const token = localStorage.getItem('token'); // ✅ use sessionStorage if you switched
+      const token = localStorage.getItem('token');
       const form = new FormData();
 
       form.append('productId', formData.productId);
@@ -60,9 +58,8 @@ const AddRepair = () => {
   };
 
   return (
-
-      <div className="p-6 max-w-md mx-auto">
-        {/* 🔙 Back Button */}
+    <div className="min-h-screen pt-28 pb-16 px-6 bg-gradient-to-r from-blue-200 via-purple-100 to-pink-200 flex flex-col items-center justify-start">
+      <div className="w-full max-w-md bg-white p-6 rounded-xl shadow-md">
         <div className="flex justify-start mb-4">
           <button
             onClick={() => navigate('/repair')}
@@ -72,7 +69,7 @@ const AddRepair = () => {
           </button>
         </div>
 
-        <h1 className="text-2xl font-bold">Submit a Repair Request</h1> 
+        <h1 className="text-2xl font-bold mb-4">Submit a Repair Request</h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
           {['productId', 'customerName', 'productName', 'description'].map((field) => (
@@ -108,6 +105,7 @@ const AddRepair = () => {
           </div>
         </form>
       </div>
+    </div>
   );
 };
 

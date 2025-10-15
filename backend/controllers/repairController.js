@@ -11,12 +11,12 @@ export const createRepair = async (req, res) => {
 
     const allRepairs = await Repair.find({}, 'repairId').lean();
     const maxId = allRepairs.reduce((max, r) => {
-      const match = r.repairId?.match(/R00(\d+)/);
+      const match = r.repairId?.match(/PR(\d+)/);
       const num = match ? parseInt(match[1]) : 0;
       return num > max ? num : max;
     }, 0);
 
-    const repairId = `R00${(maxId + 1).toString().padStart(3, '0')}`;
+    const repairId = `PR${(maxId + 1).toString().padStart(3, '0')}`;
     const damagedImagePath = req.file ? req.file.path : '';
 
     const newRepair = new Repair({
