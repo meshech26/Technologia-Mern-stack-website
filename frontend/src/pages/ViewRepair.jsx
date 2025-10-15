@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 
 const ViewRepair = () => {
   const { id } = useParams();
@@ -45,8 +43,6 @@ const ViewRepair = () => {
   if (!repair) return <div className="p-6">No repair found.</div>;
 
   return (
-    <>
-      <Header />
     <div className="p-6 max-w-4xl mx-auto space-y-6">
       {/* Back Button */}
       <button
@@ -79,8 +75,6 @@ const ViewRepair = () => {
         })}
       </div>
     </div>
-     <Footer />
-    </>
   );
 };
 
